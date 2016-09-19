@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h1>Hello {{ email }}</h1>
+    <a href="/blogs/new"><button class="btn btn-primary">New Blog</button></a>
+    {% if blogs|length > 0 %}
+        {% for blog in blogs %}
+            <h3><a href="/posts/{{ blog._id }}">{{ blog.title }}</a></h3>
+            <p>{{ blog.description }}</p>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <span class="label label-warning">There is no blog yet, you should creaate one!</span>
+    {% endif %}
+
+</div>
+
+{% endblock %}
