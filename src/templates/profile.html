@@ -3,6 +3,9 @@
 <div class="container">
     <h1>Hello {{ email }}</h1>
     <a href="/blogs/new"><button class="btn btn-primary">New Blog</button></a>
+    <a href="/login"><button class="btn btn-info">Log Out</button></a>
+
+
     {% if blogs|length > 0 %}
         {% for blog in blogs %}
             <h3><a href="/posts/{{ blog._id }}">{{ blog.title }}</a></h3>

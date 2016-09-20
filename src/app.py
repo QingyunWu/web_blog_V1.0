@@ -17,6 +17,7 @@ def home_template():
 
 @app.route('/login')
 def login_template():
+	session['email'] = None
 	return render_template('login.html')
 
 @app.route('/register')
