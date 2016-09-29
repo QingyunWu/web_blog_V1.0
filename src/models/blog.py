@@ -40,15 +40,24 @@ class Blog(object):
 			'_id': self._id
 		}
 	# return a blog obj from MongoDB by blog _id
-	@classmethod
-	def from_mongo(cls, _id):
-		blog_data = Database.find_one(collection='blogs',
-									  query={'_id': _id})
-		return cls(**blog_data)
+	# @classmethod
+	# def from_mongo(cls, _id):
+	# 	blog_data = Database.find_one(collection='blogs',
+	# 								  query={'_id': _id})
+	# 	return cls(**blog_data)
+	@staticmethod
+	def from_mongo(_id):
+		return Blog(Database.find_one(collection='blogs',
+								 query = {'_id': _id}))
 
 	# return all blogs objs from MongoDB by author_id
-	@classmethod
-	def find_by_author_id(cls, author_id):
-		blogs = Database.find(collection='blogs',
-							  query={'author_id': author_id})
-		return [cls(**blog) for blog in blogs]
+	# @classmethod
+	# def find_by_author_id(cls, author_id):
+	# 	blogs = Database.find(collection='blogs',
+	# 						  query={'author_id': author_id})
+	# 	return [cls(**blog) for blog in blogs]
+	@staticmethod
+	def find_by_author_id(author_id):
+		# this can return a list of Blog objects
+		return [blog for blog in Database.find(collection='blogs',
+											   query={'author_id': author_id})]

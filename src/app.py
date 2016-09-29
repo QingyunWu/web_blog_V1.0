@@ -34,17 +34,19 @@ def initialize_database():
 @app.route('/auth/login', methods=['POST'])
 def login_user():
 	# flask request
-	email = request.form['email']
-	password = request.form['password']
+	if request.method == 'POST':
+		email = request.form['email']
+		password = request.form['password']
 
-	if User.login_valid(email, password):
-		# if valid, set session to be current user email
-		session['email'] = email
-	else:
-		session['email'] = None
-	# pass a email value to "profile.html"
-	user = User.get_by_email(session['email'])
-	blogs = user.get_blogs()
+		if User.login_valid(email, password):
+			# if valid, set session to be current user email
+			session['email'] = email
+		else:
+			session['email'] = None
+		# pass a email value to "profile.html"
+		user = User.get_by_email(session['email'])
+		blogs = user.get_blogs()
+
 	return render_template("profile.html", email=session['email'], blogs=blogs)
 
 

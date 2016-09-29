@@ -33,7 +33,7 @@ class Post(object):
 	# retrieve a post from mongoDB by _id, return a post Obj
 	@classmethod
 	def from_mongo(cls, id):
-		post_data = Database.find_one(collection='posts', query={'_id': id})
+		post_data = Database.find_one(collection='posts', query={'_id':id})
 		return cls(**post_data)
 
 	# return all the posts from a blog by blog_id

@@ -3,7 +3,7 @@
 <div class="container">
     <h2>{{ blog_title }}</h2>
     <a href="/posts/new/{{ blog_id }}"><button class="btn btn-primary">New post</button></a>
-    <a href="/blogs/new"><button class="btn btn-info">Back</button></a>
+    <a href="/auth/login"><button class="btn btn-info">Back</button></a>
 
     {% if posts|length > 0 %}
         {% for post in posts %}

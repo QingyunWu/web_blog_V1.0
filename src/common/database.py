@@ -1,27 +1,27 @@
 __author__ = 'Qingyun Wu'
 
-import pymongo
+from pymongo import MongoClient
 
 
 class Database(object):
-    URI = "mongodb://127.0.0.1:27017"
-    DATABASE = None
+	URI = "mongodb://127.0.0.1:27017"
+	DATABASE = None
 
-    @staticmethod
-    def initialize():
+	@staticmethod
+	def initialize():
 		# set up a client connected to MongoDB on host
-        client = pymongo.MongoClient(Database.URI)
-        # this will create a database in MongoDB if non-exists
-        Database.DATABASE = client["fullstack"]
+		client = MongoClient(Database.URI)
+		# this will create a database in MongoDB if non-exists
+		Database.DATABASE = client["fullstack"]
 
-    @staticmethod
-    def insert(collection, data):
-        Database.DATABASE[collection].insert(data)
+	@staticmethod
+	def insert(collection, data):
+		Database.DATABASE[collection].insert(data)
 
-    @staticmethod
-    def find(collection, query):
-        return Database.DATABASE[collection].find(query)
+	@staticmethod
+	def find(collection, query):
+		return Database.DATABASE[collection].find(query)
 
-    @staticmethod
-    def find_one(collection, query):
-        return Database.DATABASE[collection].find_one(query)
+	@staticmethod
+	def find_one(collection, query):
+		return Database.DATABASE[collection].find_one(query)
