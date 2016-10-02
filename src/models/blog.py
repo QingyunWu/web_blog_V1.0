@@ -30,7 +30,7 @@ class Blog(object):
 	def save_to_mongo(self):
 		Database.insert(collection='blogs',
 						data=self.json())
-	# convert a blog obj to a json obj
+	# convert a blog obj to a json obj/ a dictionary
 	def json(self):
 		return {
 			'author': self.author,
@@ -47,8 +47,13 @@ class Blog(object):
 	# 	return cls(**blog_data)
 	@staticmethod
 	def from_mongo(_id):
-		return Blog(Database.find_one(collection='blogs',
-								 query = {'_id': _id}))
+		blog_data = Database.find_one(collection='blogs',
+								 query = {'_id': _id})
+		return Blog(blog_data['author'],
+					blog_data['title'],
+					blog_data['description'],
+					blog_data['author_id'],
+					blog_data['_id'])
 
 	# return all blogs objs from MongoDB by author_id
 	# @classmethod

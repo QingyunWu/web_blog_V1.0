@@ -13,18 +13,25 @@ class User(object):
 		self.password = password
 		self._id = uuid.uuid4().hex if _id is None else _id
 
-	@classmethod
-	def get_by_email(cls, email):
+	@staticmethod
+	def get_by_email(email):
 		data = Database.find_one(collection="users", query={"email": email})
 		if data is not None:
-			return cls(**data)
+			return User(data['email'],
+						data['password'])
 
 	# return a user obj by its _id
-	@classmethod
-	def get_by_id(cls, _id):
-		data = Database.find_one(collection="users", query={"_id": _id})
-		if data is not None:
-			return cls(**data)
+	# @classmethod
+	# def get_by_id(cls, _id):
+	# 	user_data = Database.find_one(collection="users", query={"_id": _id})
+	# 	if user_data is not None:
+	# 		return cls(**user_data)
+	@staticmethod
+	def get_by_id(_id):
+		user_data = Database.find_one(collection="users", query={"_id": _id})
+		if user_data is not None:
+			return User(user_data['email'],
+						user_data['password'])
 
 	# check whether a login is valid
 	@staticmethod
@@ -81,11 +88,11 @@ class User(object):
 
 	def json(self):
 		return {
-			"email": self.email,
-			"_id": self._id,
-			"password": self.password
+			'email': self.email,
+			'_id': self._id,
+			'password': self.password
 		}
 
 	# call user.save_to_mongo to save the current user to MongoDB
 	def save_to_mongo(self):
-		Database.insert("users", self.json())
+		Database.insert('users', self.json())
